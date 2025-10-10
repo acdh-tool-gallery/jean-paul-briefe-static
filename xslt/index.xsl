@@ -27,12 +27,29 @@
             <body class="d-flex flex-column h-100">
                 <xsl:call-template name="nav_bar"/>
                 <main class="flex-shrink-0 flex-grow-1">
-                    <div class="container">
-                        <xsl:call-template name="one_time_alert"/>
-                        <h1><xsl:value-of select="$project_short_title"/></h1>
-                        <h2><xsl:value-of select="$project_title"/></h2>
-                        <div class="text-center p-4">
-                            <xsl:call-template name="blockquote"/>
+                    <div class="container col-xxl-8 pt-3">
+                        <div class="row flex-lg-row align-items-center g-5 py-5">
+                            <div class="col-lg-6">
+                                <h1 class="lh-base">
+                                    <span class="display-6">Jean Paul</span>
+                                    <br/>
+                                    <span class="display-4">Sämtliche Briefe</span>
+                                    <br />
+                                    <span class="display-6">1780–1825</span>
+                                </h1>
+                                <p class="text-end">Demo Applikation, erstellt für die ACDH Tool-Gallery 11.3</p>
+                                <p class="lead">Die Daten für diese Projekt stammen von <a href="https://www.jeanpaul-edition.de">Jean Paul – Sämtliche Briefe digital</a>, herausgegeben im Auftrag der Berlin-Brandenburgischen Akademie der Wissenschaften von Markus Bernauer, Norbert Miller und Frederike Neuber (2018–) </p>
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                                    <a href="search.html" type="button" class="btn btn-primary btn-lg px-4 me-md-2">Volltextsuche</a>
+                                    <a href="toc.html" type="button" class="btn btn-outline-primary btn-lg px-4">Zur Korrespondenz</a>
+                                </div>
+                            </div>
+                            <div class="col-10 col-sm-8 col-lg-6">
+                                <figure class="figure">
+                                    <img src="images/title-image.jpg" class="d-block mx-lg-auto img-fluid" alt="Heinrich Pfenninger, Public domain, via Wikimedia Commons" width="400" height="600" loading="lazy"/>
+                                    <figcaption class="pt-3 figure-caption">Heinrich Pfenninger</figcaption>
+                                </figure>
+                            </div>
                         </div>
                     </div>
                 </main>

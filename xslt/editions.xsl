@@ -124,12 +124,16 @@
                                     <xsl:value-of select="$doc_title"/>
                                 </h1>
                                 <div>
-                                    <a href="{$teiSource}">
+                                    <a href="{$teiSource}" class="pe-1">
                                         <i class="bi bi-download fs-2" title="Zum TEI/XML Dokument"
                                             visually-hidden="true">
-                                            <span class="visually-hidden">Zum TEI/XML
-                                                Dokument</span>
+                                            <span class="visually-hidden">Zum TEI/XML Dokument</span>
                                         </i>
+                                    </a>
+                                   
+                                    <a href="{'https://www.jeanpaul-edition.de/brief.html?num='||data(tei:TEI/@xml:id)}" class="ps-1">
+                                        <i class="bi bi-box-arrow-in-up-right fs-2" title="Zur originalen Webseite"></i>
+                                        <span class="visually-hidden">Zur originalen Webseite</span>
                                     </a>
                                 </div>
                             </div>
@@ -142,11 +146,11 @@
                             </div>
                             <div class="col-md-4 brief-sidebar">
                                 <div id="textgrundlage" class="p-2">
-                                    <h2 class="fs-6">Textgrundlage</h2>
+                                    <h2 class="fs-6"><i class="bi bi-file-earmark-fill"></i> Textgrundlage</h2>
                                     <xsl:value-of select=".//tei:fileDesc/tei:sourceDesc/tei:bibl/tei:title"/>
                                 </div>
                                 <div id="kommentar" class="p-2">
-                                    <h2 class="fs-6">Kommentar (der gedruckten Ausgabe)</h2>
+                                    <h2 class="fs-6"><i class="bi bi-list-columns"></i> Kommentar (der gedruckten Ausgabe)</h2>
                                     <xsl:apply-templates select=".//tei:div[@type='comment']"/>
                                 </div>
                                 

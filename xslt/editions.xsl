@@ -105,7 +105,7 @@
                                     <i class="bi bi-chevron-double-left"></i>
                                     <span class="visually-hidden">Zum vorigen Brief in der Edition</span>
                                 </a>
-                                Korpus
+                                Edition
                                 <a href="#" class="text-bg-secondary">
                                     <xsl:attribute name="href">
                                         <xsl:value-of select="concat(.//tei:correspContext[@n='edition']/tei:ptr[@type='next']/@target, '.html')"/>

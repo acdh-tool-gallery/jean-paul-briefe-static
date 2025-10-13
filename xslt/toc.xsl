@@ -32,7 +32,7 @@
                             <li class="breadcrumb-item">
                                 <a href="index.html"><xsl:value-of select="$project_short_title"/></a>
                             </li>
-                            <li class="breadcrumb-item active" aria-current="page">Briefe an JP</li>
+                            <li class="breadcrumb-item active" aria-current="page">von Briefe</li>
                         </ol>
                     </nav>
                     <div class="container">

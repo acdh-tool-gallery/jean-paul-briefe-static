@@ -14,7 +14,7 @@
     
     <xsl:template match="/">
         <xsl:variable name="doc_title">
-            <xsl:value-of select=".//tei:titleStmt/tei:title[1]/text()"/>
+            <xsl:value-of select="'Ortsregister'"/>
         </xsl:variable>
         <html class="h-100" lang="{$default_lang}">
             
@@ -36,7 +36,15 @@
                 <xsl:call-template name="nav_bar"/>
                 <main class="flex-shrink-0 flex-grow-1">
                     <div class="container">
-                        <h1><xsl:value-of select="$doc_title"/></h1>
+                        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="ps-5 p-3">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="index.html"><xsl:value-of select="$project_short_title"/></a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page"><xsl:value-of select="$doc_title"/></li>
+                            </ol>
+                        </nav>
+                        <h1 class="display-5 text-center"><xsl:value-of select="$doc_title"/></h1>
                         <div id="map"/>
                         <table id="placesTable">
                             <thead>
@@ -58,7 +66,7 @@
                                             <xsl:value-of select="./tei:placeName[1]/text()"/>
                                         </td>
                                         <td>
-                                            <xsl:value-of select="count(.//tei:note[@type='mentions'])"/>
+                                            <xsl:value-of select="count(.//tei:linkGrp[@n]/@n)"/>
                                         </td>
                                         <td>
                                             <xsl:choose>
@@ -112,8 +120,18 @@
                     <body class="d-flex flex-column h-100">
                         <xsl:call-template name="nav_bar"/>
                         <main class="flex-shrink-0 flex-grow-1">
+                            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="ps-5 p-3">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item">
+                                        <a href="index.html"><xsl:value-of select="$project_short_title"/></a>
+                                    </li>
+                                    <li class="breadcrumb-item">
+                                        <a href="listperson.html"><xsl:value-of select="$doc_title"/></a>
+                                    </li>
+                                </ol>
+                            </nav>
                             <div class="container">
-                                <h1>
+                                <h1 class="display-5 text-center">
                                     <xsl:value-of select="$name"/>
                                 </h1>
                                 <xsl:call-template name="place_detail"/>

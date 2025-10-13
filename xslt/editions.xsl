@@ -118,11 +118,9 @@
                     </div>
                     <div class="container">
                         <div class="row">
-                            <div class="col-md-2 col-lg-2 col-sm-12 text-start">
-                                
-                            </div>
+                            <div class="col-md-2 col-lg-2 col-sm-12 text-start"/>
                             <div class="col-md-8 col-lg-8 col-sm-12 text-center">
-                                <h1>
+                                <h1 class="fs-2 pt-2">
                                     <xsl:value-of select="$doc_title"/>
                                 </h1>
                                 <div>
@@ -135,53 +133,83 @@
                                     </a>
                                 </div>
                             </div>
-                            <div class="col-md-2 col-lg-2 col-sm-12 text-start">
+                            <div class="col-md-2 col-lg-2 col-sm-12 text-start"/>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8 briefansicht">
+                                <h2 class="visually-hidden">Brieftext</h2>
+                                <xsl:apply-templates select=".//tei:div[@type='letter']"/>
+                            </div>
+                            <div class="col-md-4 brief-sidebar">
+                                <div id="textgrundlage" class="p-2">
+                                    <h2 class="fs-6">Textgrundlage</h2>
+                                    <xsl:value-of select=".//tei:fileDesc/tei:sourceDesc/tei:bibl/tei:title"/>
+                                </div>
+                                <div id="kommentar" class="p-2">
+                                    <h2 class="fs-6">Kommentar (der gedruckten Ausgabe)</h2>
+                                    <xsl:apply-templates select=".//tei:div[@type='comment']"/>
+                                </div>
                                 
                             </div>
                         </div>
-                        <xsl:apply-templates select=".//tei:body"/>
-                        <p style="text-align:center;">
-                            <xsl:for-each select=".//tei:note[not(./tei:p)]">
-                                <div class="footnotes" id="{local:makeId(.)}">
-                                    <xsl:element name="a">
-                                        <xsl:attribute name="name">
-                                            <xsl:text>fn</xsl:text>
-                                            <xsl:number level="any" format="1" count="tei:note"/>
-                                        </xsl:attribute>
-                                        <a>
-                                            <xsl:attribute name="href">
-                                                <xsl:text>#fna_</xsl:text>
-                                                <xsl:number level="any" format="1" count="tei:note"
-                                                />
-                                            </xsl:attribute>
-                                            <span
-                                                style="font-size:7pt;vertical-align:super; margin-right: 0.4em">
-                                                <xsl:number level="any" format="1" count="tei:note"
-                                                />
-                                            </span>
-                                        </a>
-                                    </xsl:element>
-                                    <xsl:apply-templates/>
-                                </div>
-                            </xsl:for-each>
-                        </p>
-
                         <div class="text-center p-4">
                             <xsl:call-template name="blockquote">
                                 <xsl:with-param name="pageId" select="$link"/>
                             </xsl:call-template>
                         </div>
-
                     </div>
-                    <xsl:for-each select="//tei:back">
-                        <div class="tei-back">
-                            <xsl:apply-templates/>
-                        </div>
-                    </xsl:for-each>
                 </main>
                 <xsl:call-template name="html_footer"/>
-                <script src="vendor/openseadragon-bin-4.1.1/openseadragon.min.js"/>
+                
+                <xsl:for-each select="//tei:note[@corresp]">
+                    <xsl:variable name="modalId">
+                        <xsl:value-of select="replace(./@corresp, '#', '')"/>
+                    </xsl:variable>
+                    <div class="modal fade" id="{$modalId}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Info zu Zeile <xsl:value-of select="$modalId"/></h1>
+                                </div>
+                                <div class="modal-body">
+                                    <ul>
+                                        <xsl:for-each select=".//tei:person">
+                                            <li>
+                                                <a href="{replace(./@corresp, '#', '')||'.html'}">
+                                                    <xsl:value-of select="string-join(./tei:persName[1]//text())"/>
+                                                </a>
+                                            </li>
+                                        </xsl:for-each>
+                                    </ul>
+                                    <ul>
+                                        <xsl:for-each select=".//tei:place">
+                                            <li>
+                                                <a href="{replace(./@corresp, '#', '')||'.html'}">
+                                                    <xsl:value-of select="string-join(./tei:placeName[1]//text())"/>
+                                                </a>
+                                            </li>
+                                        </xsl:for-each>
+                                    </ul>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </xsl:for-each>
             </body>
         </html>
     </xsl:template>
+    
+    <xsl:template match="//tei:note[@corresp]">
+        <xsl:variable name="modalId">
+            <xsl:value-of select="@corresp"/>
+        </xsl:variable>
+        <button type="button" class="entity btn btn-primary" data-bs-toggle="modal" data-bs-target="{$modalId}">
+            <i class="bi bi-box-arrow-in-up-right"></i>
+            <span class="visually-hidden">Infos zu erwähnten Personen oder Orten</span>
+        </button>
+    </xsl:template>
+    
 </xsl:stylesheet>

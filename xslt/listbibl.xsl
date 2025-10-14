@@ -28,20 +28,27 @@
             <body class="d-flex flex-column h-100">
                 <xsl:call-template name="nav_bar"/>
 
-                <main class="flex-shrink-0 flex-grow-1">                    
+                <main class="flex-shrink-0 flex-grow-1"> 
+                    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="ps-5 p-3">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="index.html"><xsl:value-of select="$project_short_title"/></a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page"><xsl:value-of select="$doc_title"/></li>
+                        </ol>
+                    </nav>
                     <div class="container">                        
-                        <h1>
-                            <xsl:value-of select="$doc_title"/>
-                        </h1>
+                        <h1 class="display-5 text-center"><xsl:value-of select="$doc_title"/></h1>
+                        <div class="text-center p-1"><span id="counter1"></span> von <span id="counter2"></span> Werken</div>
                         
                         <table id="myTable">
                             <thead>
                                 <tr>
-                                    <th scope="col" width="20" tabulator-formatter="html" tabulator-headerSort="false" tabulator-download="false">#</th>
-                                    <th scope="col" tabulator-headerFilter="input">Titel</th>
+                                    <th scope="col" tabulator-headerFilter="input" tabulator-formatter="html" tabulator-download="false" tabulator-minWidth="350">Titel</th>
+                                    <th scope="col" tabulator-visible="false" tabulator-download="true">title_</th>
                                     <th scope="col" tabulator-headerFilter="input">Autor</th>
-                                    <th scope="col" tabulator-headerFilter="input">Datum</th>
-                                    <th scope="col" tabulator-headerFilter="input">ID</th>
+                                    <th scope="col" tabulator-headerFilter="input" tabulator-maxWidth="200">Erwähnungen</th>
+                                    <th scope="col" tabulator-visible="false">ID</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -53,9 +60,9 @@
                                         <td>
                                             <a>
                                               <xsl:attribute name="href">
-                                              <xsl:value-of select="concat($id, '.html')"/>
+                                                <xsl:value-of select="concat($id, '.html')"/>
                                               </xsl:attribute>
-                                              <i class="bi bi-link-45deg"/>
+                                              <xsl:value-of select="./tei:title[1]/text()"/>
                                             </a>
                                         </td>
                                         <td>
@@ -65,7 +72,7 @@
                                             <xsl:value-of select=".//tei:author[1]//text()"/>
                                         </td>
                                         <td>
-                                            <xsl:value-of select=".//tei:date[1]/text()"/>
+                                            <xsl:value-of select="count(.//tei:linkGrp[@n]/@n)"/>
                                         </td>
                                         <td>
                                             <xsl:value-of select="$id"/>
@@ -100,9 +107,19 @@
 
                     <body class="d-flex flex-column h-100">
                         <xsl:call-template name="nav_bar"/>
+                        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="ps-5 p-3">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="index.html"><xsl:value-of select="$project_short_title"/></a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="listperson.html"><xsl:value-of select="$doc_title"/></a>
+                                </li>
+                            </ol>
+                        </nav>
                         <main class="flex-shrink-0 flex-grow-1">
                             <div class="container">
-                                <h1>
+                                <h1 class="display-5 text-center">
                                     <xsl:value-of select="$name"/>
                                 </h1>
                                 <xsl:call-template name="bibl_detail"/>

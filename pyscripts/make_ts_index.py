@@ -27,17 +27,10 @@ current_schema = {
         {"name": "rec_id", "type": "string"},
         {"name": "title", "type": "string"},
         {"name": "full_text", "type": "string"},
-        {
-            "name": "year",
-            "type": "int32",
-            "optional": True,
-            "facet": True,
-        },
         {"name": "sender", "type": "object[]", "facet": True, "optional": True},
         {"name": "receiver", "type": "object[]", "facet": True, "optional": True},
         {"name": "persons", "type": "object[]", "facet": True, "optional": True},
         {"name": "places", "type": "object[]", "facet": True, "optional": True},
-        {"name": "bibls", "type": "object[]", "facet": True, "optional": True},
     ],
 }
 
@@ -63,6 +56,31 @@ for x in tqdm(files, total=len(files)):
         item["id"] = check_for_hash(y.attrib["key"])
         item["label"] = y.text
         record["sender"].append(item)
+    record["receiver"] = []
+    for y in doc.any_xpath('.//tei:correspAction[@type="received"]/tei:persName'):
+        item = {}
+        try:
+            item["id"] = check_for_hash(y.attrib["key"])
+        except KeyError:
+            continue
+        item["label"] = y.text
+        record["receiver"].append(item)
+    record["persons"] = []
+    for y in doc.any_xpath(
+        ".//tei:body//tei:listPerson[@type='lineReference']/tei:person[@corresp]"
+    ):
+        item = {}
+        item["id"] = check_for_hash(y.attrib["corresp"])
+        item["label"] = extract_fulltext(y)
+        record["persons"].append(item)
+    record["places"] = []
+    for y in doc.any_xpath(
+        ".//tei:body//tei:listPlace[@type='lineReference']/tei:place[@corresp]"
+    ):
+        item = {}
+        item["id"] = check_for_hash(y.attrib["corresp"])
+        item["label"] = extract_fulltext(y)
+        record["places"].append(item)
 
     records.append(record)
 

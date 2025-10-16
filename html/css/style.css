@@ -1,7 +1,14 @@
 :root {
-  --dse-base-color: #2b6cb0;
+  /* Primary Colors */
+  --dse-primary: #2b6cb0;
+  --dse-secondary: #231b7c;
+  
+  /* Accent Colors */
+  --dse-accent-warm: #d32828f6;
+  
+  /* Background Colors */
+  --dse-bg-light: #EDFAFD;
 }
-
 /* needed for interactive map in listplace.xsl */
 div#map {
   height: 50vh;
@@ -19,7 +26,7 @@ dd {
 
 header {
   border-bottom: solid;
-  border-bottom-color: var(--dse-base-color);
+  border-bottom-color: var(--dse-primary);
 }
 
 .navbar-brand {
@@ -28,17 +35,17 @@ header {
 }
 
 .btn-primary {
-  --bs-btn-bg: var(--dse-base-color);
-  --bs-btn-hover-bg: #017fa1;
+  --bs-btn-bg: var(--dse-primary);
+  --bs-btn-hover-bg: var(--dse-secondary);
 }
 
 .btn-outline-primary {
-  --bs-btn-color: var(--dse-base-color);
-  --bs-btn-border-color: var(--dse-base-color);
-  --bs-btn-hover-bg: var(--dse-base-color);
-  --bs-btn-hover-border-color: var(--dse-base-color);
-  --bs-btn-active-bg: var(--dse-base-color);
-  --bs-btn-active-border-color: var(--dse-base-color);
+  --bs-btn-color: var(--dse-primary);
+  --bs-btn-border-color: var(--dse-primary);
+  --bs-btn-hover-bg: var(--dse-primary);
+  --bs-btn-hover-border-color: var(--dse-primary);
+  --bs-btn-active-bg: var(--dse-primary);
+  --bs-btn-active-border-color: var(--dse-primary);
 }
 
 
@@ -49,7 +56,7 @@ main {
 footer a {
   text-decoration: underline;
   text-decoration-style: dotted;
-  color: var(--dse-base-color);
+  color: var(--dse-primary);
 }
 
 /* define <hi rend> classes */
@@ -80,4 +87,74 @@ button.entity {
   color: inherit;
   text-align: inherit;
   cursor: pointer;
+}
+
+/* Search facets cards */
+
+.card-body {
+  color: var(--dse-primary);
+  background-color: var(--dse-bg-light);
+}
+
+/* Algolia search */
+
+.ais-Hits-item {
+  border-radius: 0.25rem;
+}
+
+.ais-Hits-item:hover {
+  background-color: #017ea11e;
+}
+/* change the color of text in the hits which are links */
+.custom-link {
+  color: var(--dse-primary)
+}
+
+/* make the whole Facet panel clickable */
+.ais-Panel-header {
+  cursor: pointer;
+  position: relative;
+  z-index: 10;
+}
+
+.ais-Panel-collapseButton {
+  z-index: 20;
+  inset: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+}
+
+/* make the curent refinments and clear button more prominent */
+.ais-CurrentRefinements .ais-CurrentRefinements-list .ais-CurrentRefinements-item {
+  background: var(--dse-accent-warm);
+}
+
+.ais-ClearRefinements .ais-ClearRefinements-button {
+  background: var(--dse-accent-warm);
+}
+
+.ais-ClearRefinements .ais-ClearRefinements-button:hover {
+  color:white;
+  background: var(--dse-primary);
+}
+
+.ais-CurrentRefinements-category .ais-CurrentRefinements-delete:hover {
+  color: black
+}
+/* hide the clear refinemnt and show-mpre button when disabled */
+.ais-ClearRefinements-button--disabled {
+	 visibility: hidden;
+}
+
+.ais-RefinementList-showMore--disabled {
+  visibility: hidden;
+}
+
+ /* make the side facets sticky */
+.sticky-sidebar {
+  position: sticky; 
+  top: 20px; 
+  max-height: calc(100vh - 40px); 
+  overflow-y: auto
 }

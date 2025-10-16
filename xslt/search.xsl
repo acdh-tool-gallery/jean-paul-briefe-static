@@ -18,18 +18,90 @@
                     <xsl:with-param name="html_title" select="$doc_title"></xsl:with-param>
                 </xsl:call-template>
             </head>
-            
+
             <body class="d-flex flex-column h-100">
                 <xsl:call-template name="nav_bar"/>
                 <main class="flex-shrink-0 flex-grow-1">
                     <div class="container">
-                        <h1>
+                        <h1 class="pt-4">
                             <xsl:value-of select="$doc_title"/>
                         </h1>
+                      <div class="text-center p-3">
+                            <div class="d-flex gap-2 align-items-center mb-3">
+                                 <button
+                                    id="filter-button"
+                                    aria-label="filter"
+                                    class="btn btn-outline-secondary d-md-none d-flex align-items-center justify-content-center flex-shrink-0"
+                                    style="width: 2rem; height: 2rem; padding: 0;"
+                                    type="button"
+                                    data-bs-toggle="offcanvas"
+                                    data-bs-target="#filterOffcanvas"
+                                >
+                                    <i class="bi bi-sliders" aria-hidden="true"></i>
+                                </button>
+                                <div class="flex-grow-1" id="searchbox"></div>
+                            </div>
+                            <div id="stats-container"/>
+                            <div class="d-flex justify-content-between align-items-center">
+                              <div id="current-refinements" class="col-auto"/>
+                                <div id="clear-refinements" class="col-auto"/>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                             <!-- Facets column - sticky -->
+                            <div class="col-md-3">
+                                <div class="d-none d-md-block sticky-sidebar" id="refinements-section">
+                                    <h2 class="visually-hidden">Facets</h2>
+                                    
+                                    <!-- Brief Section -->
+                                    <div class="card shadow-sm mb-3">
+                                        <div class="card-body">
+                                            <h3 class="card-title h5 fw-bold mb-3">
+                                                <i class="bi bi-envelope"></i> Brief
+                                            </h3>
+                                            <div id="refinement-list-sender" class="pb-3"></div>
+                                            <div id="refinement-list-receiver" class="pb-3"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Entitäten Section -->
+                                    <div class="card shadow-sm mb-3">
+                                        <div class="card-body">
+                                            <h3 class="card-title h5 fw-bold mb-3">
+                                                <i class="bi bi-tags"></i> Entitäten
+                                            </h3>
+                                            <div id="refinement-list-persons" class="pb-3"></div>
+                                            <div id="refinement-list-places" class="pb-3"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Sortierung Section -->
+                                    <div class="card shadow-sm mb-3">
+                                        <div class="card-body">
+                                            <h3 class="card-title h5 fw-bold mb-3">
+                                                <i class="bi bi-sort-down"></i> Sortierung
+                                            </h3>
+                                            <div id="sort-by"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Results column - scrollable -->
+                            <div class="col-md-9">
+                                <div id="hits" style="max-height: 70vh; overflow-y: auto;"/>
+                                <div id="pagination" class="p-3"/>
+                            </div>
+                        </div>
                     </div>
                 </main>
                 <xsl:call-template name="html_footer"/>
-                <xsl:call-template name="typesense_libs"/>
+                <link rel="stylesheet"
+                    href="https://cdn.jsdelivr.net/npm/instantsearch.css@7/themes/algolia-min.css"/>
+                <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.46.0"/>
+                <script src="https://cdn.jsdelivr.net/npm/typesense-instantsearch-adapter@2/dist/typesense-instantsearch-adapter.min.js"/>
+                <script src="js/search.js"/>
             </body>
         </html>
     </xsl:template>

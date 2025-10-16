@@ -23,9 +23,9 @@ current_schema = {
     "name": "jpbriefe",
     "enable_nested_fields": True,
     "fields": [
-        {"name": "id", "type": "string"},
-        {"name": "rec_id", "type": "string"},
-        {"name": "title", "type": "string"},
+        {"name": "id", "type": "string", "sort": True},
+        {"name": "rec_id", "type": "string", "sort": True},
+        {"name": "title", "type": "string", "sort": True},
         {"name": "full_text", "type": "string"},
         {"name": "sender", "type": "object[]", "facet": True, "optional": True},
         {"name": "receiver", "type": "object[]", "facet": True, "optional": True},
